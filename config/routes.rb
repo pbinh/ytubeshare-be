@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post 'login', to: 'jwt#login'
     #---Videos
     get 'videos', to: 'videos#list'
+    post 'videos', to: 'videos#add_video'
   end
   # Defines the root path route ("/")
   # root "posts#index"
