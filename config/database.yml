@@ -10,8 +10,14 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  database: storage/development.sqlite3
+  # <<: *default
+  adapter: mysql2
+  encoding: utf8
+  database: ytubeshare_dev
+  username: root
+  password: my-secret-pw
+  host: 0.0.0.0
+  port: 3306
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
