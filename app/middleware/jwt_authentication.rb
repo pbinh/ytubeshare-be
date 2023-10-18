@@ -1,6 +1,6 @@
 module YtubeshareBe
   class JwtAuthentication
-      WHITE_LIST = ['api/users/register', 'api/login']
+      WHITE_LIST = ['api/register', 'api/login']
 
       def initialize(app)
         @app = app

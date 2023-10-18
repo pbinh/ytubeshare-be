@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   namespace :api, defaults: { format: :json } do
     #---Users
-    post 'users', to: 'users#create'
+    post 'register', to: 'users#create'
     #---Authen
     post 'login', to: 'jwt#login'
     #---Videos
