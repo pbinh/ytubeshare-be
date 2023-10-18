@@ -25,5 +25,8 @@ module YtubeshareBe
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.middleware.use YtubeshareBe::JwtAuthentication
+    
+    config.action_cable.url = 'ws://localhost:3000/cable'
+    config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
   end
 end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     #---Videos
     get 'videos', to: 'videos#list'
     post 'videos', to: 'videos#add_video'
+    get 'test', to: 'videos#test_notify'
   end
   # Defines the root path route ("/")
   # root "posts#index"
