@@ -35,4 +35,9 @@ Things you may want to cover:
     rails db:migrate
 
 * NOTES:
+    - [Dev environment MacOS issues] Sometime dev environments cannot determine gem version controled by Rbenv:
+        Bash script to refresh:
+            export PATH="$HOME/.rbenv/bin:$PATH"
+            eval "$(rbenv init -)"
     - It occured a very strange case that need to install mysql on development machine to bundle install successfully <= will keep eye on this problem on production built later.
+    
