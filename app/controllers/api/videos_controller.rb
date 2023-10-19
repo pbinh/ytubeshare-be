@@ -6,7 +6,7 @@ module Api
 
     def list
       videos = @user.videos
-      render json: { videos: videos }
+      render json: { videos: videos.map{ |video| video.attributes.merge('email' => @user.email) }.sort_by { |video| video[:created_at]}.reverse }
     end
 
     def add_video
@@ -14,27 +14,17 @@ module Api
       new_video = @user.videos.new(video_info)
     
       if new_video.save
-        broadcast_to_all_users(new_video)
+        SendNotificationJob.perform_now(new_video.attributes.merge('email' => @user.email))
         render json: { message: 'Video added successfully' }
       else
         render json: { error: new_video.errors.full_messages.join(', ') }, status: :unprocessable_entity
       end
     end
 
-    def test_notify
-      broadcast_to_all_users("test")
-    end
-
     private
 
     def find_user
         @user = User.find_by(id: JwtService.decode(request.headers['Authorization'])['user_id'])
-    end
-
-    def broadcast_to_all_users(video)
-      message = video.to_json
-      ActionCable.server.broadcast("general_channel", {message: message})
-      head :ok
     end
   end
 end
