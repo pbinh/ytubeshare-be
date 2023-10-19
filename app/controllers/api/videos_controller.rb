@@ -5,8 +5,19 @@ module Api
     before_action :find_user
 
     def list
-      videos = @user.videos
-      render json: { videos: videos.map{ |video| video.attributes.merge('email' => @user.email) }.sort_by { |video| video[:created_at]}.reverse }
+      videos = Video.includes(:user).all 
+      video_data = videos.map do |video|
+        {
+          id: video.id,
+          title: video.title,
+          url: video.url,
+          description: video.description,
+          email: video.user.email,
+          created_at: video.created_at  
+        }
+      end 
+
+      render json: { videos: video_data.sort_by { |video| video[:created_at]}.reverse }
     end
 
     def add_video
