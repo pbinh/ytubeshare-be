@@ -43,7 +43,7 @@ gem "bootsnap", require: false
 
 # ====Added dependencies
 # Use MySQL as the database for Active Record
-gem 'mysql2', '0.5.4'
+gem 'mysql2'
 gem 'jwt'
 gem 'rack-cors'
 
