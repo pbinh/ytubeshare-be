@@ -21,6 +21,10 @@ FROM base as build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libvips pkg-config
 
+# This line is very important needed to install mysql2 successfully
+RUN apt-get install -y rubygems ruby-mysql2 wget build-essential default-libmysqlclient-dev ruby2*-dev sqlite3 libsqlite3-dev
+
+
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
