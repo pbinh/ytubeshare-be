@@ -2,7 +2,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.0.2
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+FROM registry.docker.com/library/ruby:$RUBY_VERSION as base
 
 # Rails app lives here
 WORKDIR /rails
@@ -13,17 +13,20 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
+
+COPY setup_wait_sql.sh ./rails
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libvips pkg-config
 
-# This line is very important needed to install mysql2 successfully
-RUN apt-get install -y rubygems ruby-mysql2 wget build-essential default-libmysqlclient-dev ruby2*-dev sqlite3 libsqlite3-dev
-
+# These lines is very important needed to install mysql2 successfully
+# RUN apt-get update && apt-get install -y rubygems ruby-mysql2 wget build-essential libmysqlclient-dev ruby2*-dev sqlite3 libsqlite3-dev
+# RUN gem install mysql
+RUN apt-get update && apt-get install -y ruby-mysql2 default-libmysqlclient-dev libmariadb-dev
+RUN gem install mysql2
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
