@@ -26,7 +26,7 @@ module YtubeshareBe
     # config.eager_load_paths << Rails.root.join("extras")
     config.middleware.use JwtAuthentication
     
-    config.action_cable.url = 'ws://localhost:3000/cable'
+    config.action_cable.url = 'ws://35.185.181.21:3000/cable'
     config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
   end
 end
