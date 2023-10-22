@@ -5,7 +5,7 @@ class JwtService
   
     def self.decode(token)
         begin
-            decoded_token = JWT.decode(token, Rails.application.credentials.secret_key_base, true, algorithm: 'HS256')
+            decoded_token = JWT.decode(token, Rails.application.credentials.secret_key_base, false, algorithm: 'HS256')
             payload = decoded_token.first
         rescue JWT::DecodeError, JWT::VerificationError
             return nil
@@ -18,7 +18,7 @@ class JwtService
         return false if token.blank?
     
         begin
-            decoded_token = JWT.decode(token, Rails.application.credentials.secret_key_base, true, algorithm: 'HS256')
+            decoded_token = JWT.decode(token, Rails.application.credentials.secret_key_base, false, algorithm: 'HS256')
             payload = decoded_token.first
             
             if payload['exp'] && payload['exp'] < Time.now.to_i
