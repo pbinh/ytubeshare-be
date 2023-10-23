@@ -1,6 +1,9 @@
 require 'digest'
+require_relative '../../helpers/application_helper'
+
 module Api
   class Api::VideosController < ApplicationController
+    include ApplicationHelper
     skip_before_action :verify_authenticity_token
     before_action :find_user
 
@@ -21,7 +24,12 @@ module Api
     end
 
     def add_video
-      video_info = params.permit(:title, :description, :url, :metadata) 
+      video_info = params.permit(:title, :description, :url) 
+
+      unless valid_youtube_url?(video_info[:url])
+        return render json: { error: 'Invalid YouTube URL' }, status: :unprocessable_entity
+      end
+
       new_video = @user.videos.new(video_info)
     
       if new_video.save
