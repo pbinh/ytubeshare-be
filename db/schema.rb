@@ -13,8 +13,8 @@
 ActiveRecord::Schema[7.1].define(version: 2023_10_19_194704) do
   create_table "notifications", charset: "latin1", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "title", collation: "utf8mb4_general_ci"
-    t.string "message", collation: "utf8mb4_general_ci"
+    t.string "title"
+    t.string "message"
     t.string "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -22,17 +22,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_19_194704) do
   end
 
   create_table "users", charset: "latin1", force: :cascade do |t|
-    t.string "username", collation: "utf8mb4_general_ci"
-    t.string "email", null: false
+    t.string "username"
+    t.string "email"
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "videos", charset: "latin1", force: :cascade do |t|
-    t.text "title", collation: "utf8mb4_general_ci"
-    t.string "url", collation: "utf8mb4_general_ci"
-    t.text "description", collation: "utf8mb4_general_ci"
+    t.string "title"
+    t.string "url"
+    t.string "description"
     t.string "metadata"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false

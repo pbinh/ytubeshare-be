@@ -5,9 +5,9 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-SQL_CONTAINER_NAME="ytubeshare_dev"
+SQL_CONTAINER_NAME="ytubeshare"
 SQL_PORT="3306"
-SQL_ROOT_PASSWORD="my-secret-pw"
+SQL_ROOT_PASSWORD="YtubeSh@re"
 SQL_IMAGE="mysql:5.7"
 
 DATA_DIR=$(pwd)/mysql_data
@@ -40,9 +40,9 @@ start_sql_container() {
   fi
 
   if ! check_database_existence; then
-    echo "Database ytubeshare_dev does not exist. Creating the database..."
+    echo "Database ytubeshare does not exist. Creating the database..."
     create_database_if_not_exists
-    echo "Database ytubeshare_dev is ready."
+    echo "Database ytubeshare is ready."
   fi
 }
 
